@@ -1,34 +1,51 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CartContext } from "../../context/CartContext";
+import { Link } from 'react-router-dom'
 
 function Cart() {
+  const { cart } = useContext(CartContext);
   return (
     <div className="w-full max-w-7xl mx-auto">
       <h1 className="font-medium text-2xl text-center my-4">Meu carrinho</h1>
 
-      <section className="flex items-center justify-between border-b-2 border-gray-300">
-        <img
-          className="w-28"
-          src="https://www.meliuz.com.br/blog/wp-content/uploads/2020/09/solo3-pdp-p9-club_navy.png.medium.1x-756x1024.png"
-          alt="Logo Produto"
-        />
-        <strong>Preço: R$1000</strong>
+        {cart.length === 0 && (
+          <div className="flex flex-col items-center justify-center">
+            <p className="font-medium">Ops, seu carrinho está vazio...</p>
+            <Link to='/' className="bg-slate-600 my-3 p-1 px-3 text-white font-medium rounded">
+            Acessar produtos
+            </Link>
+          </div>
+        )}
 
-        <div className="flex items-center justify-center gap-3">
-          <button className="bg-slate-600 px-2 text-white font-medium flex items-center justify-center">
-            -
-          </button>
-          2
-          <button className="bg-slate-600 px-2 text-white font-medium flex items-center justify-center">
-            +
-          </button>
-        </div>
+      {cart.map((item) => (
+        <section className="flex items-center justify-between border-b-2 border-gray-300" key={item.id}>
+          <img
+            className="w-28"
+            src={item.cover}
+            alt={item.title}
+          />
+          <strong>Preço: {item.price}</strong>
 
-        <strong className="float-right">
-          SubTotal: 10000
-        </strong>
-      </section>
+          <div className="flex items-center justify-center gap-3">
+            <button className="bg-slate-600 px-2 text-white font-medium flex items-center justify-center">
+              -
+            </button>
+            {item.amount}
+            <button className="bg-slate-600 px-2 text-white font-medium flex items-center justify-center">
+              +
+            </button>
+          </div>
 
-      <p className="font-bold mt-4">Total: 10000</p>
+          <strong className="float-right">SubTotal: {item.total.toLocaleString('pt-BR',{
+            style: "currency",
+            currency: "BRL"
+          })}</strong>
+        </section>
+      ))}
+
+      {cart.length !== 0 && (
+        <p className="font-bold mt-4">Total: 10000</p>
+      )}
     </div>
   );
 }
