@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BsCartPlus } from "react-icons/bs";
 
 import { api } from "../../services/api";
+import { CartContext } from "../../context/CartContext";
 
-interface ProductProps {
+export interface ProductProps {
   id: number;
   title: string;
   description: string;
@@ -12,6 +13,7 @@ interface ProductProps {
 }
 
 function Home() {
+  const { addItemCart } = useContext(CartContext);
   const [products, setProducts] = useState<ProductProps[]>([]);
 
   useEffect(() => {
@@ -21,11 +23,10 @@ function Home() {
     }
 
     getProducts();
-
   }, []);
 
-  function handleAddCart(product: ProductProps){
-    console.log(product)
+  function handleAddCart(product: ProductProps) {
+    addItemCart(product)
   }
   return (
     <div>
@@ -44,11 +45,16 @@ function Home() {
               />
               <p className="font-medium mt-1 mb-2">{product.title}</p>
               <div className="flex gap-3 items-center">
-                <strong className="text-zinc-700/90">{product.price.toLocaleString('pt-BR',{
-                  style: 'currency',
-                  currency: 'BRL'
-                })}</strong>
-                <button className="bg-zinc-900 p-1 rounded" onClick={()=> handleAddCart(product)}>
+                <strong className="text-zinc-700/90">
+                  {product.price.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </strong>
+                <button
+                  className="bg-zinc-900 p-1 rounded"
+                  onClick={() => handleAddCart(product)}
+                >
                   <BsCartPlus color="#fff" />
                 </button>
               </div>
