@@ -21,7 +21,12 @@ function Home() {
     }
 
     getProducts();
+
   }, []);
+
+  function handleAddCart(product: ProductProps){
+    console.log(product)
+  }
   return (
     <div>
       <main className="w-full max-w-7xl px-4 mx-auto">
@@ -43,7 +48,7 @@ function Home() {
                   style: 'currency',
                   currency: 'BRL'
                 })}</strong>
-                <button className="bg-zinc-900 p-1 rounded">
+                <button className="bg-zinc-900 p-1 rounded" onClick={()=> handleAddCart(product)}>
                   <BsCartPlus color="#fff" />
                 </button>
               </div>
