@@ -4,6 +4,9 @@ import { BsCartPlus } from "react-icons/bs";
 import { api } from "../../services/api";
 import { CartContext } from "../../context/CartContext";
 
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+
 export interface ProductProps {
   id: number;
   title: string;
@@ -26,7 +29,14 @@ function Home() {
   }, []);
 
   function handleAddCart(product: ProductProps) {
-    addItemCart(product)
+    toast.success(`${product.title} adicionado ao carrinho`, {
+      style: {
+        borderRadius: 10,
+        backgroundColor: "#121212",
+        color: "#FFF",
+      },
+    });
+    addItemCart(product);
   }
   return (
     <div>
@@ -38,12 +48,16 @@ function Home() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
           {products.map((product) => (
             <section className="w-full" key={product.id}>
-              <img
-                className="w-full rounded-lg max-h-70 mb-2"
-                src={product.cover}
-                alt={product.title}
-              />
-              <p className="font-medium mt-1 mb-2">{product.title}</p>
+              <Link to={`/product/${product.id}`}>
+                <img
+                  className="w-full rounded-lg max-h-70 mb-2"
+                  src={product.cover}
+                  alt={product.title}
+                />
+              </Link>
+              <Link to={`/product/${product.id}`}>
+                <p className="font-medium mt-1 mb-2">{product.title}</p>
+              </Link>
               <div className="flex gap-3 items-center">
                 <strong className="text-zinc-700/90">
                   {product.price.toLocaleString("pt-BR", {
