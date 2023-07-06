@@ -33,7 +33,7 @@ function CartProvider({ children }: CartProviderProps) {
     const indexItem = cart.findIndex((item) => item.id === newItem.id);
 
     if (indexItem !== -1) {
-      let cartList = cart;
+      const cartList = cart;
 
       cartList[indexItem].amount = cartList[indexItem].amount + 1;
       cartList[indexItem].total =
@@ -44,7 +44,7 @@ function CartProvider({ children }: CartProviderProps) {
       return;
     }
 
-    let data = {
+    const data = {
       ...newItem,
       amount: 1,
       total: newItem.price,
@@ -58,7 +58,7 @@ function CartProvider({ children }: CartProviderProps) {
     const indexItem = cart.findIndex((item) => item.id === product.id);
 
     if (cart[indexItem]?.amount > 1) {
-      let cartList = cart;
+      const cartList = cart;
 
       cartList[indexItem].amount = cartList[indexItem].amount - 1;
       cartList[indexItem].total = cartList[indexItem].total - cartList[indexItem].price;
@@ -74,8 +74,8 @@ function CartProvider({ children }: CartProviderProps) {
   }
 
   function totalResultCart(items: CartProps[]) {
-    let myCart = items;
-    let result = myCart.reduce((acc, obj) => {
+    const myCart = items;
+    const result = myCart.reduce((acc, obj) => {
       return acc + obj.total;
     }, 0); // SOMAR TOTAL DOS OBJTOS NO CARRINHO
     const resultFormated = result.toLocaleString("pt-BR", {
