@@ -1,17 +1,4 @@
-<style>
-    *{
-        background-color: #ccc
-    }
-    p{
-        font-size: 25px;
-        color: #000;
-        font-weight: bold
-    }
-    b{
-        color: red
-    }
- 
-</style>
+
 
 ## Cart e-commerce
 
